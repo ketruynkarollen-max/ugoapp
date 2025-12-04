@@ -3,10 +3,12 @@
     <head>
         <meta charset="UTF-8"/>
         <title>U.GO App · Transforme seu Sonho Grande em ações diárias</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes"/>
+        <meta name="mobile-web-app-capable" content="yes"/>
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
         <!-- Fonte -->
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-        <style>:root { --bg: #f9fafb; --bg-card: #ffffff; --text-main: #0f172a; --text-muted: #6b7280; --border-subtle: #e5e7eb; --shadow-soft: 0 22px 50px rgba(15, 23, 42, 0.06); --shadow-light: 0 18px 40px rgba(15, 23, 42, 0.08); --radius-2xl: 40px; --radius-md: 18px; --accent: #111827; --accent-soft: rgba(34, 197, 94, 0.06); --accent-green: #f2702a; } * { margin: 0; padding: 0; box-sizing: border-box; } html { scroll-behavior: smooth; } body { font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--text-main); -webkit-font-smoothing: antialiased; overflow-x: hidden; } a { text-decoration: none; color: inherit; } .page { min-height: 100vh; display: flex; flex-direction: column; } main { flex: 1; } /* ---------- NAVBAR ---------- */.site-header { position: sticky; top: 0; z-index: 40; backdrop-filter: blur(18px); background: rgba(249, 250, 251, 0.9); border-bottom: 1px solid var(--border-subtle); } .nav-inner { max-width: 1120px; margin: 0 auto; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; gap: 16px; } .nav-left { display: flex; align-items: center; gap: 10px; } .nav-logo-mark { width: 32px; height: 32px; border-radius: 12px; background: #111827; color: #f9fafb; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; } .nav-logo-text { font-size: 14px; font-weight: 500; color: var(--text-main); } .nav-links { display: flex; align-items: center; gap: 16px; font-size: 13px; color: var(--text-muted); } .nav-links a { padding: 6px 10px; border-radius: 999px; } .nav-links a:hover { background: #e5e7eb; color: #111827; } .nav-cta { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 999px; background: #111827; color: #f9fafb; font-size: 13px; font-weight: 500; box-shadow: 0 16px 32px rgba(15, 23, 42, 0.18); } .nav-cta span { font-size: 18px; line-height: 1; } /* ---------- HERO ---------- */.hero-wrapper { position: relative; overflow: hidden; background: var(--bg); } .hero { max-width: 1120px; margin: 0 auto; padding: 56px 16px 52px; text-align: center; } .hero-pill { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 999px; border: 1px solid var(--border-subtle); background: #ffffff; font-size: 11px; text-transform: uppercase; letter-spacing: 0.16em; color: var(--text-muted); margin-bottom: 20px; } .hero-pill-dot { width: 7px; height: 7px; border-radius: 999px; background: var(--accent-green); box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.18); } .app-icon { width: 82px; height: 82px; border-radius: 22px; background: #ffffff; border: 1px solid var(--border-subtle); box-shadow: 0 14px 28px rgba(15, 23, 42, 0.06); display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; } .app-icon-img { width: 75px; height: 75px; object-fit: contain; display: block; } .app-name { font-size: 15px; font-weight: 500; margin-bottom: 18px; color: var(--text-muted); } .hero-title { font-size: clamp(34px, 5.6vw, 48px); font-weight: 700; letter-spacing: -0.04em; margin-bottom: 14px; color: var(--text-main); } .hero-title span { color: var(--accent); } .hero-subtitle { font-size: 17px; line-height: 1.7; color: var(--text-muted); max-width: 640px; margin: 0 auto 28px; } .store-button { display: inline-flex; align-items: center; gap: 10px; padding: 11px 22px; border-radius: 999px; background: #f2702a; color: #f9fafb; font-size: 14px; font-weight: 500; margin-bottom: 18px; position: relative; box-shadow: 0 18px 32px rgba(15, 23, 42, 0.26); transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease; } .store-button:hover { transform: translateY(-2px); box-shadow: 0 22px 40px rgba(15, 23, 42, 0.32); filter: brightness(1.02); } .store-logo { width: 26px; height: 26px; border-radius: 999px; background: #f9fafb; display: flex; align-items: center; justify-content: center; color: #111827; font-size: 17px; font-weight: 700; } .store-text span { display: block; line-height: 1.1; text-align: left; } .store-text small { font-size: 10px; text-transform: uppercase; letter-spacing: 0.16em; opacity: 0.8; } .hero-note { font-size: 13px; color: var(--text-muted); } /* ---------- CELULARES ---------- */.phones-section { max-width: 1120px; margin: 0 auto; padding: 10px 16px 40px; } .phones-parallax { display: flex; gap: 24px; align-items: flex-end; overflow: visible; padding-bottom: 30px; padding-top: 30px; justify-content: center; flex-wrap: wrap; } .phone-mock { width: 180px; max-width: 40%; display: block; border-radius: 40px; box-shadow: 0 18px 40px rgba(15, 23, 42, 0.15); transition: transform 0.3s ease, box-shadow 0.3s ease; } .phone-mock:hover { transform: translateY(-8px); box-shadow: 0 24px 60px rgba(15, 23, 42, 0.2); }
+        <style>:root { --bg: #ffffff; --bg-card: #ffffff; --text-main: #0f172a; --text-muted: #6b7280; --border-subtle: #e5e7eb; --shadow-soft: 0 22px 50px rgba(15, 23, 42, 0.06); --shadow-light: 0 18px 40px rgba(15, 23, 42, 0.08); --radius-2xl: 40px; --radius-md: 18px; --accent: #111827; --accent-soft: rgba(34, 197, 94, 0.06); --accent-green: #f2702a; } * { margin: 0; padding: 0; box-sizing: border-box; } html { scroll-behavior: smooth; background: #ffffff !important; } body { font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif; background: #ffffff !important; color: var(--text-main); -webkit-font-smoothing: antialiased; overflow-x: hidden; } a { text-decoration: none; color: inherit; } .page { min-height: 100vh; display: flex; flex-direction: column; } main { flex: 1; } /* ---------- NAVBAR ---------- */.site-header { position: sticky; top: 0; z-index: 40; backdrop-filter: blur(18px); background: rgba(249, 250, 251, 0.9); border-bottom: 1px solid var(--border-subtle); } .nav-inner { max-width: 1120px; margin: 0 auto; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; gap: 16px; } .nav-left { display: flex; align-items: center; gap: 10px; } .nav-logo-mark { width: 32px; height: 32px; border-radius: 12px; background: #111827; color: #f9fafb; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; } .nav-logo-text { font-size: 14px; font-weight: 500; color: var(--text-main); } .nav-links { display: flex; align-items: center; gap: 16px; font-size: 13px; color: var(--text-muted); } .nav-links a { padding: 6px 10px; border-radius: 999px; } .nav-links a:hover { background: #e5e7eb; color: #111827; } .nav-cta { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 999px; background: #111827; color: #f9fafb; font-size: 13px; font-weight: 500; box-shadow: 0 16px 32px rgba(15, 23, 42, 0.18); } .nav-cta span { font-size: 18px; line-height: 1; } /* ---------- HERO ---------- */.hero-wrapper { position: relative; overflow: hidden; background: var(--bg); } .hero { max-width: 1120px; margin: 0 auto; padding: 56px 16px 52px; text-align: center; } .hero-pill { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 999px; border: 1px solid var(--border-subtle); background: #ffffff; font-size: 11px; text-transform: uppercase; letter-spacing: 0.16em; color: var(--text-muted); margin-bottom: 20px; } .hero-pill-dot { width: 7px; height: 7px; border-radius: 999px; background: var(--accent-green); box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.18); } .app-icon { width: 82px; height: 82px; border-radius: 22px; background: #ffffff; border: 1px solid var(--border-subtle); box-shadow: 0 14px 28px rgba(15, 23, 42, 0.06); display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; } .app-icon-img { width: 75px; height: 75px; object-fit: contain; display: block; } .app-name { font-size: 15px; font-weight: 500; margin-bottom: 18px; color: var(--text-muted); } .hero-title { font-size: clamp(34px, 5.6vw, 48px); font-weight: 700; letter-spacing: -0.04em; margin-bottom: 14px; color: var(--text-main); } .hero-title span { color: var(--accent); } .hero-subtitle { font-size: 17px; line-height: 1.7; color: var(--text-muted); max-width: 640px; margin: 0 auto 28px; } .store-button { display: inline-flex; align-items: center; gap: 10px; padding: 11px 22px; border-radius: 999px; background: #f2702a; color: #f9fafb; font-size: 14px; font-weight: 500; margin-bottom: 18px; position: relative; box-shadow: 0 18px 32px rgba(15, 23, 42, 0.26); transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease; } .store-button:hover { transform: translateY(-2px); box-shadow: 0 22px 40px rgba(15, 23, 42, 0.32); filter: brightness(1.02); } .store-logo { width: 26px; height: 26px; border-radius: 999px; background: #f9fafb; display: flex; align-items: center; justify-content: center; color: #111827; font-size: 17px; font-weight: 700; } .store-text span { display: block; line-height: 1.1; text-align: left; } .store-text small { font-size: 10px; text-transform: uppercase; letter-spacing: 0.16em; opacity: 0.8; } .hero-note { font-size: 13px; color: var(--text-muted); } /* ---------- CELULARES ---------- */.phones-section { max-width: 1120px; margin: 0 auto; padding: 10px 16px 40px; } .phones-parallax { display: flex; gap: 24px; align-items: flex-end; overflow: visible; padding-bottom: 30px; padding-top: 30px; justify-content: center; flex-wrap: wrap; } .phone-mock { width: 180px; max-width: 40%; display: block; border-radius: 40px; box-shadow: 0 18px 40px rgba(15, 23, 42, 0.15); transition: transform 0.3s ease, box-shadow 0.3s ease; } .phone-mock:hover { transform: translateY(-8px); box-shadow: 0 24px 60px rgba(15, 23, 42, 0.2); }
 
 /* Animação dos celulares */
 @keyframes phoneFloat {
@@ -99,7 +101,50 @@
   transition: 0.3s;
 }
 
+.mobile-menu-btn.active span:nth-child(1) {
+  transform: rotate(45deg) translate(7px, 7px);
+}
+
+.mobile-menu-btn.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-menu-btn.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -7px);
+}
+
 /* ========== RESPONSIVO MOBILE ========== */
+
+/* Tablet e Mobile grande (até 900px) */
+@media (max-width: 900px) {
+  .nav-cta {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+  
+  .store-button {
+    flex-direction: column;
+    text-align: center;
+    gap: 6px;
+  }
+  
+  .shuffle-section {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 40px 16px;
+  }
+  
+  .shuffle-grid {
+    height: 300px;
+  }
+  
+  .beneficios-hero-text {
+    padding-left: 0 !important;
+    max-width: 100% !important;
+  }
+}
+
+/* Mobile médio e grande (até 768px) */
 @media (max-width: 768px) {
   /* Menu hambúrguer visível */
   .mobile-menu-btn {
@@ -118,6 +163,7 @@
     padding: 20px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     border-top: 1px solid #e5e7eb;
+    z-index: 50;
   }
   
   .nav-links.active {
@@ -127,15 +173,23 @@
   .nav-links a {
     padding: 12px 16px;
     border-radius: 8px;
+    width: 100%;
+    text-align: center;
   }
   
   .nav-links .btn-primary {
     text-align: center;
     margin-top: 10px;
+    width: 100%;
   }
   
   .nav-inner {
     padding: 10px 16px;
+    position: relative;
+  }
+  
+  .nav-logo-text {
+    font-size: 13px;
   }
   
   /* Hero mobile */
@@ -146,21 +200,31 @@
   .hero-title {
     font-size: 28px !important;
     line-height: 1.2;
+    margin-bottom: 12px;
   }
   
   .hero-subtitle {
     font-size: 15px;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
+    padding: 0 8px;
   }
   
   #heroLogo {
     width: 200px !important;
+    max-width: 90vw;
   }
   
   .store-button {
     padding: 10px 18px;
     font-size: 13px;
     margin-bottom: 10px;
+    width: auto;
+    max-width: 280px;
+  }
+  
+  .hero-note {
+    font-size: 12px;
+    padding: 0 16px;
   }
   
   /* Celulares mobile */
@@ -169,13 +233,16 @@
   }
   
   .phones-parallax {
-    gap: 12px;
+    gap: 8px;
     padding: 15px 0;
+    flex-wrap: wrap;
+    justify-content: center;
   }
   
   .phone-mock {
-    width: 140px !important;
-    max-width: 30% !important;
+    width: 120px !important;
+    max-width: 28% !important;
+    min-width: 100px;
     border-radius: 20px;
   }
   
@@ -191,17 +258,41 @@
   
   .spotlight-text h2 {
     font-size: 24px !important;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  
+  .spotlight-text p.lead {
+    font-size: 14px;
+    margin-bottom: 20px;
   }
   
   .spotlight-phone-wrap {
     margin-top: 0 !important;
     order: -1;
+    display: flex;
+    justify-content: center;
   }
   
   .spotlight-phone {
     transform: scale(1) !important;
-    width: 260px !important;
-    height: 520px !important;
+    width: 240px !important;
+    height: 480px !important;
+    max-width: 90vw;
+  }
+  
+  .spotlight-list {
+    gap: 12px;
+  }
+  
+  .spotlight-item {
+    font-size: 13px;
+  }
+  
+  .spotlight-bullet {
+    width: 24px;
+    height: 24px;
+    font-size: 13px;
   }
   
   /* Calendário mobile */
@@ -212,14 +303,30 @@
   .calendar-container {
     flex-direction: column !important;
     gap: 30px !important;
+    align-items: center;
   }
   
   .calendar {
     max-width: 100% !important;
+    width: 100%;
+  }
+  
+  .calendar-text {
+    max-width: 100%;
+    text-align: center;
   }
   
   .calendar-text h2 {
     font-size: 22px !important;
+  }
+  
+  .calendar-text p {
+    font-size: 14px;
+  }
+  
+  .calendar-text ul {
+    text-align: left;
+    display: inline-block;
   }
   
   /* Analytics mobile */
@@ -229,28 +336,68 @@
     gap: 24px !important;
   }
   
+  .analytics-copy {
+    text-align: center;
+  }
+  
   .analytics-copy h2 {
     font-size: 24px !important;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  
+  .analytics-copy p {
+    font-size: 14px;
+    margin: 0 auto 20px;
+    max-width: 100%;
+  }
+  
+  .analytics-media {
+    order: -1;
+    max-width: 100%;
+  }
+  
+  .analytics-media video {
+    max-width: 100%;
+    width: 100%;
   }
   
   /* Gráfico da vida mobile */
   .life-section {
+    grid-template-columns: 1fr !important;
     flex-direction: column !important;
     gap: 24px !important;
     padding: 20px 16px !important;
+    text-align: center;
   }
   
   .life-copy {
     text-align: center;
     min-width: auto !important;
+    max-width: 100%;
   }
   
   .life-copy h2 {
     font-size: 22px !important;
+    margin-bottom: 12px;
+  }
+  
+  .life-copy p {
+    font-size: 14px;
+    margin: 0 auto 16px;
+    max-width: 100%;
+  }
+  
+  .life-chart-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
   }
   
   .life-chart-card {
     padding: 20px !important;
+    width: 100%;
+    max-width: 320px;
   }
   
   #lifeWheelSvg {
@@ -263,23 +410,98 @@
     padding: 30px 16px !important;
   }
   
+  .stats-header {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  
+  .stats-header h2 {
+    font-size: 24px !important;
+    margin-bottom: 12px;
+  }
+  
+  .stats-header p {
+    font-size: 14px;
+  }
+  
   .stats-grid {
     grid-template-columns: 1fr !important;
     gap: 16px !important;
+  }
+  
+  .stat-card {
+    padding: 20px 18px;
   }
   
   .stat-number {
     font-size: 36px !important;
   }
   
+  .stat-prefix {
+    font-size: 36px;
+  }
+  
+  .stat-card p {
+    font-size: 12px;
+  }
+  
   /* Pomodoro mobile */
+  .pomodoro-section {
+    padding: 30px 16px !important;
+  }
+  
   .pomodoro-inner {
     grid-template-columns: 1fr !important;
     gap: 24px !important;
+    text-align: center;
+  }
+  
+  .pomodoro-copy {
+    order: 1;
+  }
+  
+  .pomodoro-copy-eyebrow {
+    font-size: 10px;
   }
   
   .pomodoro-copy h2 {
     font-size: 22px !important;
+    margin-bottom: 12px;
+  }
+  
+  .pomodoro-copy p {
+    font-size: 14px;
+    max-width: 100%;
+    margin: 0 auto 20px;
+  }
+  
+  .pomodoro-middle {
+    order: 2;
+    margin: 16px 0;
+  }
+  
+  .pomodoro-middle-video {
+    max-width: 100%;
+    width: 100%;
+  }
+  
+  .pomodoro-timer {
+    order: 3;
+  }
+  
+  .pomodoro-circle {
+    width: 160px;
+    height: 160px;
+    margin: 0 auto 16px;
+  }
+  
+  .pomodoro-svg {
+    width: 160px;
+    height: 160px;
+  }
+  
+  .pomodoro-time {
+    font-size: 28px;
   }
   
   /* Benefícios mobile */
@@ -287,52 +509,354 @@
     grid-template-columns: 1fr !important;
     gap: 24px !important;
     padding: 30px 16px !important;
+    text-align: center;
+  }
+  
+  .beneficios-hero-text {
+    padding-left: 0 !important;
+    max-width: 100% !important;
   }
   
   .beneficios-hero-text .section-title {
     font-size: 26px !important;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  
+  .beneficios-hero-text .section-subtitle {
+    font-size: 14px;
+    margin: 0 auto 20px;
+    max-width: 100%;
+  }
+  
+  .beneficios-hero-media video {
+    max-width: 260px;
+    width: 100%;
   }
   
   .features-grid {
     grid-template-columns: 1fr !important;
+    gap: 16px;
+    padding: 0 16px 40px;
+  }
+  
+  .feature-card {
+    padding: 16px;
+  }
+  
+  .feature-title {
+    font-size: 13px;
+  }
+  
+  .feature-card p {
+    font-size: 12px;
+  }
+  
+  /* Shuffle mobile */
+  .shuffle-content {
+    text-align: center;
+    max-width: 100%;
+  }
+  
+  .shuffle-title {
+    font-size: 28px !important;
+  }
+  
+  .shuffle-description {
+    font-size: 14px;
+  }
+  
+  .shuffle-button {
+    width: 100%;
+    max-width: 280px;
+    justify-content: center;
   }
   
   /* Comentários mobile */
-  .ugo-comentarios-grid {
-    grid-template-columns: 1fr !important;
+  .ugo-comentarios {
+    padding: 50px 16px 40px !important;
   }
   
   .ugo-comentarios-title {
     font-size: 1.5rem !important;
+    margin-bottom: 32px;
+    line-height: 1.2;
+  }
+  
+  .comentario-card {
+    min-width: 280px;
+    padding: 16px 18px;
+  }
+  
+  .comentario-texto {
+    font-size: 0.8rem;
   }
   
   /* Logos mobile */
+  .clients-section {
+    padding: 20px 16px;
+  }
+  
+  .clients-title {
+    font-size: 18px;
+  }
+  
+  .clients-sub {
+    font-size: 12px;
+  }
+  
   .logos-track img {
-    height: 100px !important;
+    height: 80px !important;
   }
   
   /* Footer mobile */
   footer {
     padding: 16px;
     font-size: 11px;
+    line-height: 1.5;
+  }
+  
+  /* Stack cards mobile */
+  .stack-section {
+    flex-direction: column-reverse;
+    gap: 32px;
+    padding: 40px 16px;
+  }
+  
+  .stack-text {
+    max-width: 100%;
+    text-align: center;
+  }
+  
+  .stack-text h2 {
+    font-size: 24px;
+  }
+  
+  .cards-stack {
+    width: 100%;
+    max-width: 300px;
   }
 }
 
+/* Mobile pequeno (até 480px) */
 @media (max-width: 480px) {
+  .hero {
+    padding: 24px 12px 32px;
+  }
+  
   .hero-title {
     font-size: 24px !important;
+    padding: 0 8px;
+  }
+  
+  .hero-subtitle {
+    font-size: 14px;
+    padding: 0 4px;
   }
   
   #heroLogo {
     width: 150px !important;
   }
   
+  .app-icon {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 12px;
+  }
+  
   .phone-mock {
-    width: 100px !important;
+    width: 90px !important;
+    max-width: 25% !important;
+    min-width: 80px;
+  }
+  
+  .phones-parallax {
+    gap: 6px;
   }
   
   .store-button {
     width: 100%;
+    max-width: 100%;
+    justify-content: center;
+    padding: 12px 20px;
+    font-size: 12px;
+  }
+  
+  .store-text small {
+    font-size: 9px;
+  }
+  
+  .spotlight-phone {
+    width: 200px !important;
+    height: 400px !important;
+  }
+  
+  .spotlight-text h2 {
+    font-size: 22px !important;
+  }
+  
+  .spotlight-item {
+    font-size: 12px;
+    gap: 8px;
+  }
+  
+  .calendar-text h2 {
+    font-size: 20px !important;
+  }
+  
+  .analytics-copy h2 {
+    font-size: 22px !important;
+  }
+  
+  .stats-header h2 {
+    font-size: 22px !important;
+  }
+  
+  .stat-number {
+    font-size: 32px !important;
+  }
+  
+  .stat-prefix {
+    font-size: 32px;
+  }
+  
+  .pomodoro-copy h2 {
+    font-size: 20px !important;
+  }
+  
+  .pomodoro-circle {
+    width: 140px;
+    height: 140px;
+  }
+  
+  .pomodoro-svg {
+    width: 140px;
+    height: 140px;
+  }
+  
+  .pomodoro-time {
+    font-size: 24px;
+  }
+  
+  .beneficios-hero-text .section-title {
+    font-size: 22px !important;
+  }
+  
+  .life-copy h2 {
+    font-size: 20px !important;
+  }
+  
+  #lifeWheelSvg {
+    width: 200px !important;
+    height: 200px !important;
+  }
+  
+  .life-chart-card {
+    padding: 16px !important;
+    max-width: 280px;
+  }
+  
+  .shuffle-title {
+    font-size: 24px !important;
+  }
+  
+  .shuffle-grid {
+    height: 250px;
+  }
+  
+  .ugo-comentarios-title {
+    font-size: 1.3rem !important;
+  }
+  
+  .comentario-card {
+    min-width: 260px;
+    padding: 14px 16px;
+  }
+  
+  .nav-logo img {
+    height: 28px;
+  }
+}
+
+/* Mobile muito pequeno (até 360px) */
+@media (max-width: 360px) {
+  .hero-title {
+    font-size: 22px !important;
+  }
+  
+  #heroLogo {
+    width: 120px !important;
+  }
+  
+  .phone-mock {
+    width: 75px !important;
+    min-width: 70px;
+  }
+  
+  .spotlight-phone {
+    width: 180px !important;
+    height: 360px !important;
+  }
+  
+  .pomodoro-circle {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .pomodoro-svg {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .pomodoro-time {
+    font-size: 20px;
+  }
+  
+  #lifeWheelSvg {
+    width: 180px !important;
+    height: 180px !important;
+  }
+  
+  .stat-number {
+    font-size: 28px !important;
+  }
+  
+  .shuffle-grid {
+    height: 200px;
+  }
+}
+
+/* ========== OTIMIZAÇÕES TOUCH E MOBILE ========== */
+@media (max-width: 768px) {
+  /* Melhor feedback de toque */
+  button, a, .store-button, .nav-links a, .spotlight-cta-btn, .analytics-cta, .shuffle-button {
+    -webkit-tap-highlight-color: rgba(242, 112, 42, 0.2);
+    touch-action: manipulation;
+    cursor: pointer;
+  }
+  
+  /* Melhor scroll em mobile */
+  html {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+  
+  /* Prevenir zoom em inputs (se houver) */
+  input, textarea, select {
+    font-size: 16px !important;
+  }
+  
+  /* Melhor área de toque para botões */
+  .mobile-menu-btn {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 12px;
+  }
+  
+  .nav-links a {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
     justify-content: center;
   }
 }
@@ -424,20 +948,100 @@
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
 }
 
-@media (max-width: 900px) {
-    .shuffle-section {
-        grid-template-columns: 1fr;
-        gap: 40px;
-    }
-    
-    .shuffle-content {
-        text-align: center;
-        max-width: 100%;
-    }
-    
-    .shuffle-grid {
-        height: 300px;
-    }
+/* Shuffle já está coberto pelas media queries acima */
+
+/* ========== FUNDOS BRANCOS - FORÇAR EM TUDO ========== */
+body, html {
+    background: #ffffff !important;
+}
+
+.page, main {
+    background: #ffffff !important;
+}
+
+.hero-wrapper,
+.phones-section,
+.spotlight-section,
+.analytics-section,
+.stats-section,
+.life-section,
+.pomodoro-section,
+.clients-section,
+.beneficios-hero,
+.shuffle-section,
+.calendar-section,
+.ugo-comentarios,
+.features-grid,
+footer {
+    background: #ffffff !important;
+}
+
+/* Vídeos com fundo branco */
+video {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+}
+
+video::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: #ffffff;
+    z-index: -1;
+}
+
+.pomodoro-background-video {
+    display: none !important; /* Esconder vídeo de fundo */
+}
+
+.analytics-video,
+.analytics-media video,
+.beneficios-hero-media video,
+.pomodoro-middle-video,
+#heroLogo,
+.analytics-section video {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+}
+
+/* Imagens com fundo branco */
+img,
+.phone-mock,
+.mockup-iphone {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+}
+
+/* Containers de vídeo com fundo branco */
+.analytics-media,
+.beneficios-hero-media,
+.pomodoro-middle,
+#logoContainer {
+    background: #ffffff !important;
+}
+
+/* Remover transparências que mostram outros fundos */
+.site-header {
+    background: rgba(255, 255, 255, 1) !important;
+}
+
+.spotlight-phone,
+.spotlight-phone-inner,
+.spotlight-topbar,
+.spotlight-scroll-area,
+.scroll-content,
+.scroll-card {
+    background: #ffffff !important;
+}
+
+.calendar,
+.box-content-db,
+.main-box,
+.stat-card,
+.life-chart-card,
+.feature-card,
+.comentario-card {
+    background: #ffffff !important;
 }
 </style>
     </head>
@@ -458,7 +1062,7 @@
                         <a href="analytics.html">Analytics</a>
                         <a href="#download" class="btn-primary">Baixar app</a>
                     </nav>
-                    <button class="mobile-menu-btn" id="mobileMenuBtn" onclick="document.getElementById('navLinks').classList.toggle('active')">
+                    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
                         <span></span>
                         <span></span>
                         <span></span>
@@ -468,7 +1072,7 @@
             <!-- HERO -->
             <div class="hero-wrapper">
                 <section class="hero reveal-up" id="download">
-                    <div class="app-icon" id="logoContainer" style="width: auto; height: auto; padding: 0; border: none; box-shadow: none; background: transparent; transition: transform 0.1s ease-out;">
+                    <div class="app-icon" id="logoContainer" style="width: auto; height: auto; padding: 0; border: none; box-shadow: none; background: #ffffff; transition: transform 0.1s ease-out;">
                         <video 
     src="./logo.mp4"
     id="heroLogo"
@@ -476,7 +1080,7 @@
     muted
     loop
     playsinline
-    style="width: 500px; height: auto; border-radius: 0; object-fit: contain; transition: width 0.1s ease-out; background: transparent; mix-blend-mode: multiply;">
+    style="width: 500px; height: auto; border-radius: 0; object-fit: contain; transition: width 0.1s ease-out; background: #ffffff; background-color: #ffffff;">
 </video>
 
                     </div>
@@ -720,7 +1324,7 @@
                 <!-- COLUNA VÍDEO -->
                 <div class="analytics-media">
                     <!-- ajuste o caminho do arquivo de vídeo -->
-                    <video src="./analytics.mp4" autoplay muted loop playsinline style="border: none; box-shadow: none; border-radius: 0;"></video>
+                    <video src="./analytics.mp4" autoplay muted loop playsinline style="border: none; box-shadow: none; border-radius: 0; background: #ffffff; background-color: #ffffff;"></video>
                 </div>
             </section>
             <!-- SEÇÃO – COMENTÁRIOS / AVALIAÇÕES -->
@@ -910,7 +1514,7 @@
               sem aquela sensação de estar sempre atrasada. </p>
                     </div>
                     <div class="pomodoro-middle">
-                        <video class="pomodoro-middle-video" src="./pomodoro.mp4" autoplay loop muted playsinline></video>
+                        <video class="pomodoro-middle-video" src="./pomodoro.mp4" autoplay loop muted playsinline style="background: #ffffff; background-color: #ffffff;"></video>
                     </div>
                     <div class="pomodoro-timer">
                         <div class="pomodoro-circle">
@@ -1219,6 +1823,37 @@
 
       window.addEventListener('scroll', updateLogoSize);
       updateLogoSize();
+    })();
+
+    // Menu Mobile - Fechar ao clicar em link
+    (function() {
+      const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+      const navLinks = document.getElementById('navLinks');
+      const navLinksItems = navLinks.querySelectorAll('a');
+      
+      if (mobileMenuBtn && navLinks) {
+        // Toggle menu
+        mobileMenuBtn.addEventListener('click', () => {
+          navLinks.classList.toggle('active');
+          mobileMenuBtn.classList.toggle('active');
+        });
+        
+        // Fechar menu ao clicar em qualquer link
+        navLinksItems.forEach(link => {
+          link.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+            mobileMenuBtn.classList.remove('active');
+          });
+        });
+        
+        // Fechar menu ao clicar fora
+        document.addEventListener('click', (e) => {
+          if (!navLinks.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+            navLinks.classList.remove('active');
+            mobileMenuBtn.classList.remove('active');
+          }
+        });
+      }
     })();
 
     // SHUFFLE GRID
