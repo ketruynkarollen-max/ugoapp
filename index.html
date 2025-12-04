@@ -595,18 +595,46 @@
   /* Logos mobile */
   .clients-section {
     padding: 20px 16px;
+    text-align: center;
   }
   
   .clients-title {
     font-size: 18px;
+    text-align: center;
+    margin-bottom: 8px;
   }
   
   .clients-sub {
     font-size: 12px;
+    text-align: center;
+    margin: 0 auto 14px;
+    max-width: 100%;
+  }
+  
+  .logos-marquee {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+  
+  .logos-marquee {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+  
+  .logos-track {
+    gap: 36px !important;
+    justify-content: flex-start;
   }
   
   .logos-track img {
-    height: 80px !important;
+    height: 70px !important;
+    width: auto;
+    object-fit: contain;
+    flex-shrink: 0;
   }
   
   /* Footer mobile */
@@ -1967,3 +1995,4 @@ img,
     })();
   </script>
 </body>
+
