@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shuffle Hero · U.GO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: #ffffff;
+            color: #1a1a1a;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Hero Section */
+        .shuffle-hero {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 32px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 60px;
+        }
+        
+        /* Conteúdo Texto */
+        .hero-content {
+            max-width: 500px;
+        }
+        
+        .hero-badge {
+            display: inline-block;
+            margin-bottom: 16px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #f2702a;
+            letter-spacing: 0.5px;
+        }
+        
+        .hero-title {
+            font-size: clamp(36px, 5vw, 56px);
+            font-weight: 600;
+            line-height: 1.1;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+        
+        .hero-description {
+            font-size: 17px;
+            line-height: 1.7;
+            color: #6b7280;
+            margin-bottom: 28px;
+        }
+        
+        .hero-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            background: #f2702a;
+            color: white;
+            font-size: 15px;
+            font-weight: 500;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .hero-button:hover {
+            background: #e05f1a;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(242, 112, 42, 0.3);
+        }
+        
+        .hero-button:active {
+            transform: scale(0.98);
+        }
+        
+        /* Shuffle Grid */
+        .shuffle-grid {
+            position: relative;
+            height: 450px;
+            width: 100%;
+        }
+        
+        .grid-item {
+            position: absolute;
+            width: calc(25% - 3px);
+            height: calc(25% - 3px);
+            border-radius: 8px;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+            background-color: #f3f4f6;
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        
+        .grid-item:hover {
+            transform: scale(1.08) !important;
+            z-index: 20 !important;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+        }
+        
+        /* Responsivo */
+        @media (max-width: 900px) {
+            .shuffle-hero {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                padding: 40px 20px;
+            }
+            
+            .hero-content {
+                text-align: center;
+                max-width: 100%;
+            }
+            
+            .shuffle-grid {
+                height: 350px;
+            }
+        }
+        
+        @media (max-width: 500px) {
+            .shuffle-grid {
+                height: 280px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="shuffle-hero">
+        <!-- Conteúdo -->
+        <div class="hero-content">
+            <span class="hero-badge">Melhor a cada dia</span>
+            <h1 class="hero-title">Transforme sua rotina em resultados</h1>
+            <p class="hero-description">
+                Com o U.GO, você desenvolve hábitos, alcança metas e constrói a melhor versão de si mesmo. Planejamento inteligente para uma vida com propósito.
+            </p>
+            <button class="hero-button">
+                Comece Agora
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </button>
+        </div>
+        
+        <!-- Grid de Imagens -->
+        <div class="shuffle-grid" id="shuffleGrid">
+            <!-- As imagens serão inseridas via JavaScript -->
+        </div>
+    </section>
+
+    <script>
+        const squareData = [
+            { id: 1, src: "https://images.unsplash.com/photo-1547347298-4074fc3086f0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+            { id: 2, src: "https://images.unsplash.com/photo-1510925758641-869d353cecc7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+            { id: 3, src: "https://images.unsplash.com/photo-1629901925121-8a141c2a42f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+            { id: 4, src: "https://images.unsplash.com/photo-1580238053495-b9720401fd45?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+            { id: 5, src: "https://images.unsplash.com/photo-1569074187119-c87815b476da?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+            { id: 6, src: "https://images.unsplash.com/photo-1556817411-31ae72fa3ea0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+            { id: 7, src: "https://images.unsplash.com/photo-1599586120429-48281b6f0ece?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+            { id: 8, src: "https://plus.unsplash.com/premium_photo-1671436824833-91c0741e89c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+            { id: 9, src: "https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+            { id: 10, src: "https://images.unsplash.com/photo-1610768764270-790fbec18178?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+            { id: 11, src: "https://images.unsplash.com/photo-1507034589631-9433cc6bc453?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+            { id: 12, src: "https://images.unsplash.com/photo-1533107862482-0e6974b06ec4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+            { id: 13, src: "https://images.unsplash.com/photo-1560089000-7433a4ebbd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+            { id: 14, src: "https://images.unsplash.com/photo-1517466787929-bc90951d0974?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+            { id: 15, src: "https://images.unsplash.com/photo-1606244864456-8bee63fce472?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" },
+            { id: 16, src: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" }
+        ];
+        
+        const grid = document.getElementById('shuffleGrid');
+        const gridItems = [];
+        let positions = [];
+        
+        // Calcular posições do grid 4x4
+        function calculatePositions() {
+            positions = [];
+            const gridRect = grid.getBoundingClientRect();
+            const itemWidth = gridRect.width / 4;
+            const itemHeight = gridRect.height / 4;
+            const gap = 4;
+            
+            for (let row = 0; row < 4; row++) {
+                for (let col = 0; col < 4; col++) {
+                    positions.push({
+                        x: col * itemWidth + (col > 0 ? gap : 0),
+                        y: row * itemHeight + (row > 0 ? gap : 0),
+                        width: itemWidth - gap,
+                        height: itemHeight - gap
+                    });
+                }
+            }
+            return positions;
+        }
+        
+        // Função de embaralhar (Fisher-Yates)
+        function shuffle(array) {
+            const newArray = [...array];
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            }
+            return newArray;
+        }
+        
+        // Criar grid inicial
+        function createGrid() {
+            grid.innerHTML = '';
+            calculatePositions();
+            
+            squareData.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'grid-item';
+                div.style.backgroundImage = `url(${item.src})`;
+                div.dataset.id = item.id;
+                div.dataset.position = index;
+                
+                // Posição inicial
+                const pos = positions[index];
+                div.style.left = `${pos.x}px`;
+                div.style.top = `${pos.y}px`;
+                div.style.width = `${pos.width}px`;
+                div.style.height = `${pos.height}px`;
+                div.style.zIndex = index;
+                
+                grid.appendChild(div);
+                gridItems.push(div);
+            });
+        }
+        
+        // Embaralhar posições - as imagens trocam de lugar
+        function shufflePositions() {
+            const shuffledPositions = shuffle([...Array(16).keys()]);
+            
+            gridItems.forEach((item, index) => {
+                const newPosIndex = shuffledPositions[index];
+                const pos = positions[newPosIndex];
+                
+                item.style.left = `${pos.x}px`;
+                item.style.top = `${pos.y}px`;
+                item.style.zIndex = Math.floor(Math.random() * 16);
+                item.dataset.position = newPosIndex;
+            });
+        }
+        
+        // Recalcular no resize
+        function handleResize() {
+            calculatePositions();
+            gridItems.forEach((item) => {
+                const posIndex = parseInt(item.dataset.position);
+                const pos = positions[posIndex];
+                item.style.left = `${pos.x}px`;
+                item.style.top = `${pos.y}px`;
+                item.style.width = `${pos.width}px`;
+                item.style.height = `${pos.height}px`;
+            });
+        }
+        
+        // Inicializar
+        createGrid();
+        
+        // Embaralhar inicial após um momento
+        setTimeout(shufflePositions, 500);
+        
+        // Embaralhar a cada 3 segundos
+        setInterval(shufflePositions, 3000);
+        
+        // Ajustar no resize
+        window.addEventListener('resize', handleResize);
+    </script>
+</body>
+</html>
+

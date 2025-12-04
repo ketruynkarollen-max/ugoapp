@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database API Animation · U.GO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #ffffff;
+            --bg-card: #fafafa;
+            --text-main: #374151;
+            --text-muted: #9ca3af;
+            --border-color: #f0f0f0;
+            --accent-green: #f2702a;
+            --accent-blue: #60a5fa;
+            --accent-purple: #c084fc;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+        
+        /* Container Principal */
+        .database-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            height: 350px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        /* SVG Styles */
+        .database-svg {
+            width: 100%;
+            height: 100%;
+            color: var(--text-muted);
+        }
+        
+        /* Animação das linhas */
+        .path-animated {
+            stroke-dasharray: 100 100;
+            stroke-dashoffset: 100;
+            animation: drawPath 1s ease-out forwards;
+        }
+        
+        @keyframes drawPath {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+        
+        /* Luzes que percorrem os caminhos */
+        .light-circle {
+            animation: lightMove 2.5s ease-in-out infinite;
+        }
+        
+        .light-1 { animation-delay: 0s; }
+        .light-2 { animation-delay: 0.4s; }
+        .light-3 { animation-delay: 0.8s; }
+        .light-4 { animation-delay: 1.2s; }
+        
+        @keyframes lightMove {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            20% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+        }
+        
+        /* Badge buttons no topo */
+        .badge-btn {
+            fill: #ffffff;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.06));
+        }
+        
+        .badge-btn:hover {
+            fill: #fff5f0;
+        }
+        
+        .badge-text {
+            fill: #6b7280;
+            font-size: 4.5px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+        
+        .badge-icon {
+            stroke: #f2702a;
+            stroke-width: 2.5;
+        }
+        
+        /* Main Box */
+        .main-box {
+            position: absolute;
+            bottom: 40px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        /* Sombra inferior */
+        .box-shadow {
+            position: absolute;
+            bottom: -16px;
+            width: 62%;
+            height: 100px;
+            background: rgba(242, 112, 42, 0.08);
+            border-radius: 16px;
+            filter: blur(30px);
+        }
+        
+        /* Título do box */
+        .box-title {
+            position: absolute;
+            top: -16px;
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 16px;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            font-size: 11px;
+            gap: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            color: var(--text-muted);
+        }
+        
+        .sparkle-icon {
+            width: 14px;
+            height: 14px;
+        }
+        
+        /* Círculo central */
+        .center-circle {
+            position: absolute;
+            bottom: -32px;
+            z-index: 30;
+            width: 60px;
+            height: 60px;
+            display: grid;
+            place-items: center;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent-green);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+        
+        /* Conteúdo do box */
+        .box-content {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+        }
+        
+        /* Badges dentro do box */
+        .inner-badge {
+            position: absolute;
+            z-index: 10;
+            height: 32px;
+            padding: 0 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 500;
+            color: #6b7280;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
+        
+        .inner-badge svg {
+            stroke: #f2702a;
+            width: 16px;
+            height: 16px;
+        }
+        
+        .inner-badge.left {
+            bottom: 32px;
+            left: 48px;
+        }
+        
+        .inner-badge.right {
+            right: 64px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .inner-badge svg {
+            width: 16px;
+            height: 16px;
+        }
+        
+        /* Círculos animados */
+        .animated-circle {
+            position: absolute;
+            border-top: 1px solid var(--border-color);
+            border-radius: 50%;
+            background: rgba(242, 112, 42, 0.05);
+        }
+        
+        .circle-1 {
+            bottom: -56px;
+            width: 100px;
+            height: 100px;
+            animation: pulse1 2s ease-in-out infinite;
+        }
+        
+        .circle-2 {
+            bottom: -80px;
+            width: 145px;
+            height: 145px;
+            animation: pulse2 2s ease-in-out infinite;
+        }
+        
+        .circle-3 {
+            bottom: -100px;
+            width: 190px;
+            height: 190px;
+            animation: pulse3 2s ease-in-out infinite;
+        }
+        
+        .circle-4 {
+            bottom: -120px;
+            width: 235px;
+            height: 235px;
+            animation: pulse4 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse1 {
+            0%, 30%, 100% { transform: scale(1); }
+            15% { transform: scale(1.02); }
+        }
+        
+        @keyframes pulse2 {
+            0%, 15%, 45%, 100% { transform: scale(1); }
+            30% { transform: scale(1.02); }
+        }
+        
+        @keyframes pulse3 {
+            0%, 30%, 60%, 100% { transform: scale(1); }
+            45% { transform: scale(1.02); }
+        }
+        
+        @keyframes pulse4 {
+            0%, 45%, 75%, 100% { transform: scale(1); }
+            60% { transform: scale(1.02); }
+        }
+        
+        /* Hover effects nos badges */
+        .inner-badge {
+            transition: all 0.25s ease;
+            cursor: pointer;
+        }
+        
+        .inner-badge:hover {
+            background: #fff8f5;
+            border-color: #f2702a;
+            color: #f2702a;
+            box-shadow: 0 4px 12px rgba(242, 112, 42, 0.15);
+            transform: translateY(-1px);
+        }
+        
+        .inner-badge:hover svg {
+            stroke: #f2702a;
+        }
+        
+        /* Responsivo */
+        @media (max-width: 500px) {
+            .database-container {
+                height: 300px;
+            }
+            
+            .inner-badge.right {
+                display: none;
+            }
+            
+            .box-title {
+                font-size: 9px;
+                padding: 4px 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="database-container">
+        <!-- SVG com caminhos e animações -->
+        <svg class="database-svg" viewBox="0 0 200 100" fill="none">
+            <!-- Gradiente para as luzes -->
+            <defs>
+                <radialGradient id="lightGrad" fx="0.5" fy="0.5">
+                    <stop offset="0%" stop-color="#f2702a" />
+                    <stop offset="100%" stop-color="transparent" />
+                </radialGradient>
+                
+                <!-- Máscaras para cada caminho -->
+                <mask id="mask1">
+                    <path d="M 31 10 v 15 q 0 5 5 5 h 59 q 5 0 5 5 v 10" stroke="white" stroke-width="1" fill="none"/>
+                </mask>
+                <mask id="mask2">
+                    <path d="M 77 10 v 10 q 0 5 5 5 h 13 q 5 0 5 5 v 10" stroke="white" stroke-width="1" fill="none"/>
+                </mask>
+                <mask id="mask3">
+                    <path d="M 124 10 v 10 q 0 5 -5 5 h -14 q -5 0 -5 5 v 10" stroke="white" stroke-width="1" fill="none"/>
+                </mask>
+                <mask id="mask4">
+                    <path d="M 170 10 v 15 q 0 5 -5 5 h -60 q -5 0 -5 5 v 10" stroke="white" stroke-width="1" fill="none"/>
+                </mask>
+            </defs>
+            
+            <!-- Caminhos animados -->
+            <g stroke="currentColor" fill="none" stroke-width="0.4">
+                <path class="path-animated" d="M 31 10 v 15 q 0 5 5 5 h 59 q 5 0 5 5 v 10" pathLength="100"/>
+                <path class="path-animated" d="M 77 10 v 10 q 0 5 5 5 h 13 q 5 0 5 5 v 10" pathLength="100" style="animation-delay: 0.1s"/>
+                <path class="path-animated" d="M 124 10 v 10 q 0 5 -5 5 h -14 q -5 0 -5 5 v 10" pathLength="100" style="animation-delay: 0.2s"/>
+                <path class="path-animated" d="M 170 10 v 15 q 0 5 -5 5 h -60 q -5 0 -5 5 v 10" pathLength="100" style="animation-delay: 0.3s"/>
+            </g>
+            
+            <!-- Luzes que percorrem os caminhos -->
+            <g mask="url(#mask1)">
+                <circle class="light-circle light-1" cx="31" cy="10" r="8" fill="url(#lightGrad)"/>
+            </g>
+            <g mask="url(#mask2)">
+                <circle class="light-circle light-2" cx="77" cy="10" r="8" fill="url(#lightGrad)"/>
+            </g>
+            <g mask="url(#mask3)">
+                <circle class="light-circle light-3" cx="124" cy="10" r="8" fill="url(#lightGrad)"/>
+            </g>
+            <g mask="url(#mask4)">
+                <circle class="light-circle light-4" cx="170" cy="10" r="8" fill="url(#lightGrad)"/>
+            </g>
+            
+            <!-- Badges no topo - Design Moderno -->
+            <g fill="none">
+                <!-- Badge 1 - Metas -->
+                <g class="badge-group">
+                    <rect class="badge-btn" x="10" y="4" width="38" height="12" rx="6" stroke="#e5e7eb" stroke-width="0.3"/>
+                    <circle cx="18" cy="10" r="3" fill="#fff5f0" stroke="#f2702a" stroke-width="0.8"/>
+                    <circle cx="18" cy="10" r="1.2" fill="#f2702a"/>
+                    <text class="badge-text" x="25" y="12">Metas</text>
+                </g>
+                
+                <!-- Badge 2 - Hábitos -->
+                <g class="badge-group">
+                    <rect class="badge-btn" x="54" y="4" width="44" height="12" rx="6" stroke="#e5e7eb" stroke-width="0.3"/>
+                    <circle cx="62" cy="10" r="3" fill="#fff5f0" stroke="#f2702a" stroke-width="0.8"/>
+                    <path d="M60.5 10 L61.5 11 L64 8.5" stroke="#f2702a" stroke-width="0.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    <text class="badge-text" x="69" y="12">Hábitos</text>
+                </g>
+                
+                <!-- Badge 3 - Tarefas -->
+                <g class="badge-group">
+                    <rect class="badge-btn" x="104" y="4" width="42" height="12" rx="6" stroke="#e5e7eb" stroke-width="0.3"/>
+                    <rect x="110" y="7" width="6" height="6" rx="1" fill="#fff5f0" stroke="#f2702a" stroke-width="0.6"/>
+                    <path d="M111.5 10 L112.5 11 L115 8.5" stroke="#f2702a" stroke-width="0.6" fill="none" stroke-linecap="round"/>
+                    <text class="badge-text" x="120" y="12">Tarefas</text>
+                </g>
+                
+                <!-- Badge 4 - Analytics -->
+                <g class="badge-group">
+                    <rect class="badge-btn" x="152" y="4" width="44" height="12" rx="6" stroke="#e5e7eb" stroke-width="0.3"/>
+                    <rect x="158" y="11" width="2" height="3" rx="0.5" fill="#f2702a"/>
+                    <rect x="161" y="9" width="2" height="5" rx="0.5" fill="#f2702a" opacity="0.7"/>
+                    <rect x="164" y="7" width="2" height="7" rx="0.5" fill="#f2702a" opacity="0.5"/>
+                    <text class="badge-text" x="170" y="12">Analytics</text>
+                </g>
+            </g>
+        </svg>
+        
+        <!-- Main Box -->
+        <div class="main-box">
+            <!-- Sombra -->
+            <div class="box-shadow"></div>
+            
+            <!-- Título -->
+            <div class="box-title">
+                <svg class="sparkle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 3l1.5 5.5L19 10l-5.5 1.5L12 17l-1.5-5.5L5 10l5.5-1.5L12 3z"/>
+                </svg>
+                <span>Sincronização em tempo real com U.GO API</span>
+            </div>
+            
+            <!-- Círculo central -->
+            <div class="center-circle">U.GO</div>
+            
+            <!-- Conteúdo -->
+            <div class="box-content">
+                <!-- Badge esquerdo -->
+                <div class="inner-badge left">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                    </svg>
+                    <span>U.GO App</span>
+                </div>
+                
+                <!-- Badge direito -->
+                <div class="inner-badge right">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+                    </svg>
+                    <span>Dashboard</span>
+                </div>
+                
+                <!-- Círculos animados -->
+                <div class="animated-circle circle-1"></div>
+                <div class="animated-circle circle-2"></div>
+                <div class="animated-circle circle-3"></div>
+                <div class="animated-circle circle-4"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Reiniciar animação das luzes periodicamente para sincronizar
+        function restartLightAnimations() {
+            const lights = document.querySelectorAll('.light-circle');
+            lights.forEach((light, index) => {
+                light.style.animation = 'none';
+                light.offsetHeight; // Trigger reflow
+                light.style.animation = `lightMove 2.5s ease-in-out infinite ${index * 0.4}s`;
+            });
+        }
+
+        // Efeito hover nos badges do SVG
+        document.querySelectorAll('.badge-group').forEach(badge => {
+            badge.style.cursor = 'pointer';
+            
+            badge.addEventListener('mouseenter', () => {
+                const btn = badge.querySelector('.badge-btn');
+                btn.style.fill = '#fff8f5';
+                btn.style.stroke = '#f2702a';
+                btn.style.strokeWidth = '0.5';
+            });
+            
+            badge.addEventListener('mouseleave', () => {
+                const btn = badge.querySelector('.badge-btn');
+                btn.style.fill = '#ffffff';
+                btn.style.stroke = '#e5e7eb';
+                btn.style.strokeWidth = '0.3';
+            });
+        });
+
+        // Opcional: reiniciar animações a cada 10 segundos para manter sincronizado
+        // setInterval(restartLightAnimations, 10000);
+    </script>
+</body>
+</html>
+

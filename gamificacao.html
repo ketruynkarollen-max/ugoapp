@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Gamificação · U.GO Play</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --bg-card: #161b22;
+            --bg-hover: #21262d;
+            --text-main: #f0f6fc;
+            --text-muted: #8b949e;
+            --accent-green: #58cc02;
+            --accent-green-glow: rgba(88, 204, 2, 0.4);
+            --accent-yellow: #ffc800;
+            --accent-yellow-glow: rgba(255, 200, 0, 0.4);
+            --accent-orange: #ff9600;
+            --accent-red: #ff4b4b;
+            --accent-blue: #1cb0f6;
+            --accent-purple: #a855f7;
+            --accent-pink: #ec4899;
+            --border-color: #30363d;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: "Nunito", system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        /* ANIMATED BACKGROUND */
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(88, 204, 2, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(168, 85, 247, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(28, 176, 246, 0.03) 0%, transparent 40%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        /* HEADER */
+        .game-header {
+            background: rgba(22, 27, 34, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 16px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo {
+            font-size: 26px;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--accent-green) 0%, var(--accent-blue) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent-green) 0%, var(--accent-blue) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            -webkit-text-fill-color: white;
+        }
+        
+        .stats-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 800;
+            font-size: 16px;
+            padding: 8px 16px;
+            background: var(--bg-card);
+            border-radius: 50px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        
+        .stat-icon {
+            font-size: 22px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        .streak-fire { animation-delay: 0s; }
+        .xp-star { animation-delay: 0.5s; }
+        .hearts { animation-delay: 1s; }
+        .gems { animation-delay: 1.5s; }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+        
+        /* MAIN LAYOUT */
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 24px;
+            display: grid;
+            grid-template-columns: 300px 1fr 300px;
+            gap: 24px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* CARDS BASE */
+        .card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            border-color: var(--accent-green);
+            box-shadow: 0 0 30px var(--accent-green-glow);
+        }
+        
+        /* SIDEBAR LEFT */
+        .sidebar-left {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        /* PROFILE CARD */
+        .profile-card {
+            padding: 28px;
+            text-align: center;
+            position: relative;
+            overflow: visible;
+        }
+        
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-pink) 100%);
+            border-radius: 20px 20px 0 0;
+        }
+        
+        .avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-orange) 0%, var(--accent-yellow) 100%);
+            margin: 20px auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 52px;
+            border: 5px solid var(--bg-card);
+            box-shadow: 0 0 30px var(--accent-yellow-glow);
+            position: relative;
+            z-index: 1;
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        
+        .username {
+            font-size: 22px;
+            font-weight: 900;
+            margin-bottom: 8px;
+        }
+        
+        .level-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(135deg, var(--accent-yellow) 0%, var(--accent-orange) 100%);
+            color: #1a1a1a;
+            padding: 6px 16px;
+            border-radius: 25px;
+            font-weight: 800;
+            font-size: 14px;
+            box-shadow: 0 4px 15px var(--accent-yellow-glow);
+        }
+        
+        .xp-progress {
+            margin-top: 20px;
+        }
+        
+        .xp-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+        
+        .xp-bar {
+            height: 14px;
+            background: var(--bg);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .xp-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-green) 0%, var(--accent-blue) 100%);
+            border-radius: 10px;
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+        
+        .xp-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        /* STREAK CARD */
+        .streak-card {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7c035 100%);
+            padding: 24px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .streak-card::before {
+            content: '🔥';
+            position: absolute;
+            font-size: 120px;
+            opacity: 0.15;
+            right: -20px;
+            top: -20px;
+        }
+        
+        .streak-number {
+            font-size: 64px;
+            font-weight: 900;
+            line-height: 1;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        
+        .streak-label {
+            font-size: 18px;
+            font-weight: 800;
+            opacity: 0.95;
+            margin-top: 4px;
+        }
+        
+        .streak-days {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 20px;
+        }
+        
+        .day-dot {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 800;
+            transition: all 0.3s ease;
+        }
+        
+        .day-dot.completed {
+            background: #fff;
+            color: #ff6b35;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .day-dot.today {
+            border: 3px solid #fff;
+            background: rgba(255,255,255,0.1);
+            animation: todayPulse 1.5s infinite;
+        }
+        
+        @keyframes todayPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(255,255,255,0); }
+        }
+        
+        /* DAILY GOAL */
+        .daily-goal-card {
+            background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-purple) 100%);
+            padding: 24px;
+            text-align: center;
+        }
+        
+        .goal-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: conic-gradient(#fff 0deg, #fff calc(var(--progress) * 3.6deg), rgba(255,255,255,0.2) calc(var(--progress) * 3.6deg));
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            animation: goalRotate 20s linear infinite;
+        }
+        
+        @keyframes goalRotate {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+        
+        .goal-inner {
+            width: 95px;
+            height: 95px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-purple) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        
+        .goal-percent {
+            font-size: 28px;
+            font-weight: 900;
+            line-height: 1;
+        }
+        
+        .goal-label {
+            font-size: 11px;
+            font-weight: 700;
+            opacity: 0.85;
+        }
+        
+        .goal-text {
+            font-weight: 800;
+            font-size: 18px;
+        }
+        
+        /* MAIN CONTENT */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+        
+        .section-title {
+            font-size: 24px;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .section-title span {
+            font-size: 30px;
+        }
+        
+        .section-count {
+            background: var(--accent-green);
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 800;
+        }
+        
+        /* HABITS */
+        .habits-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+        
+        .habit-card {
+            background: var(--bg-card);
+            border: 2px solid var(--border-color);
+            border-radius: 18px;
+            padding: 18px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .habit-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(88, 204, 2, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .habit-card:hover::before {
+            left: 100%;
+        }
+        
+        .habit-card:hover {
+            transform: translateY(-4px) scale(1.02);
+            border-color: var(--accent-green);
+            box-shadow: 0 10px 30px rgba(88, 204, 2, 0.2);
+        }
+        
+        .habit-card.completed {
+            border-color: var(--accent-green);
+            background: linear-gradient(135deg, rgba(88, 204, 2, 0.15) 0%, rgba(88, 204, 2, 0.05) 100%);
+        }
+        
+        .habit-checkbox {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 3px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            color: transparent;
+        }
+        
+        .habit-card.completed .habit-checkbox {
+            background: var(--accent-green);
+            border-color: var(--accent-green);
+            color: #fff;
+            box-shadow: 0 0 20px var(--accent-green-glow);
+        }
+        
+        .habit-icon {
+            font-size: 32px;
+            transition: transform 0.3s ease;
+        }
+        
+        .habit-card:hover .habit-icon {
+            transform: scale(1.2) rotate(10deg);
+        }
+        
+        .habit-info {
+            flex: 1;
+        }
+        
+        .habit-name {
+            font-weight: 800;
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+        
+        .habit-xp {
+            font-size: 14px;
+            color: var(--accent-yellow);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        /* TASKS */
+        .tasks-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .task-card {
+            background: var(--bg-card);
+            border: 2px solid var(--border-color);
+            border-radius: 18px;
+            padding: 18px 22px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .task-card:hover {
+            transform: translateX(8px);
+            border-color: var(--accent-blue);
+            box-shadow: 0 8px 25px rgba(28, 176, 246, 0.15);
+        }
+        
+        .task-card.completed {
+            border-color: var(--accent-green);
+            opacity: 0.7;
+        }
+        
+        .task-card.completed .task-name {
+            text-decoration: line-through;
+            color: var(--text-muted);
+        }
+        
+        .task-priority {
+            width: 6px;
+            height: 50px;
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+        
+        .priority-high { 
+            background: linear-gradient(180deg, var(--accent-red) 0%, #ff8080 100%);
+            box-shadow: 0 0 15px rgba(255, 75, 75, 0.4);
+        }
+        .priority-medium { 
+            background: linear-gradient(180deg, var(--accent-yellow) 0%, #ffe066 100%);
+            box-shadow: 0 0 15px var(--accent-yellow-glow);
+        }
+        .priority-low { 
+            background: linear-gradient(180deg, var(--accent-green) 0%, #8ce99a 100%);
+            box-shadow: 0 0 15px var(--accent-green-glow);
+        }
+        
+        .task-checkbox {
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+            border: 3px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            color: transparent;
+        }
+        
+        .task-card.completed .task-checkbox {
+            background: var(--accent-green);
+            border-color: var(--accent-green);
+            color: #fff;
+        }
+        
+        .task-info {
+            flex: 1;
+        }
+        
+        .task-name {
+            font-weight: 800;
+            font-size: 17px;
+            margin-bottom: 6px;
+        }
+        
+        .task-meta {
+            font-size: 13px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .task-xp {
+            background: linear-gradient(135deg, var(--accent-yellow) 0%, var(--accent-orange) 100%);
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-weight: 800;
+            font-size: 14px;
+            color: #1a1a1a;
+            box-shadow: 0 4px 15px var(--accent-yellow-glow);
+        }
+        
+        /* ADD BUTTON */
+        .add-btn {
+            width: 100%;
+            padding: 16px;
+            border-radius: 14px;
+            border: 2px dashed var(--border-color);
+            background: transparent;
+            color: var(--text-muted);
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 14px;
+        }
+        
+        .add-btn:hover {
+            border-color: var(--accent-green);
+            color: var(--accent-green);
+            background: rgba(88, 204, 2, 0.1);
+            transform: scale(1.02);
+        }
+        
+        /* SIDEBAR RIGHT */
+        .sidebar-right {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        /* ACHIEVEMENTS */
+        .achievements-card {
+            padding: 20px;
+        }
+        
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 16px;
+        }
+        
+        .achievement {
+            aspect-ratio: 1;
+            border-radius: 16px;
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        
+        .achievement:hover {
+            transform: scale(1.15) rotate(5deg);
+        }
+        
+        .achievement.locked {
+            filter: grayscale(1) brightness(0.5);
+        }
+        
+        .achievement.locked::after {
+            content: '🔒';
+            position: absolute;
+            font-size: 16px;
+            bottom: 4px;
+            right: 4px;
+        }
+        
+        .achievement.unlocked {
+            background: linear-gradient(135deg, var(--accent-yellow) 0%, var(--accent-orange) 100%);
+            box-shadow: 0 6px 20px var(--accent-yellow-glow);
+            animation: achievementGlow 2s ease-in-out infinite;
+        }
+        
+        @keyframes achievementGlow {
+            0%, 100% { box-shadow: 0 6px 20px var(--accent-yellow-glow); }
+            50% { box-shadow: 0 6px 30px rgba(255, 200, 0, 0.6); }
+        }
+        
+        /* LEADERBOARD */
+        .leaderboard-card {
+            padding: 20px;
+        }
+        
+        .leaderboard-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 16px;
+        }
+        
+        .leaderboard-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 14px;
+            background: var(--bg);
+            transition: all 0.3s ease;
+        }
+        
+        .leaderboard-item:hover {
+            transform: translateX(5px);
+            background: var(--bg-hover);
+        }
+        
+        .leaderboard-item.you {
+            background: linear-gradient(135deg, rgba(88, 204, 2, 0.2) 0%, rgba(88, 204, 2, 0.05) 100%);
+            border: 2px solid var(--accent-green);
+        }
+        
+        .rank {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 14px;
+            background: var(--bg-card);
+        }
+        
+        .rank-1 { 
+            background: linear-gradient(135deg, #ffd700 0%, #ffb800 100%);
+            color: #1a1a1a;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+        }
+        .rank-2 { 
+            background: linear-gradient(135deg, #e8e8e8 0%, #c0c0c0 100%);
+            color: #1a1a1a;
+        }
+        .rank-3 { 
+            background: linear-gradient(135deg, #cd7f32 0%, #b87333 100%);
+            color: #fff;
+        }
+        
+        .leader-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        
+        .leader-name {
+            flex: 1;
+            font-weight: 800;
+            font-size: 15px;
+        }
+        
+        .leader-xp {
+            font-weight: 800;
+            color: var(--accent-yellow);
+            font-size: 14px;
+        }
+        
+        /* MOTIVATIONAL QUOTE */
+        .quote-card {
+            background: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-pink) 100%);
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .quote-text {
+            font-size: 16px;
+            font-weight: 700;
+            font-style: italic;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+        
+        .quote-author {
+            font-size: 13px;
+            opacity: 0.8;
+            font-weight: 600;
+        }
+        
+        /* XP POPUP */
+        .xp-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: linear-gradient(135deg, var(--accent-yellow) 0%, var(--accent-orange) 100%);
+            color: #1a1a1a;
+            padding: 24px 48px;
+            border-radius: 24px;
+            font-size: 32px;
+            font-weight: 900;
+            z-index: 1000;
+            box-shadow: 0 20px 60px rgba(255, 200, 0, 0.5);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .xp-popup.show {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+        
+        /* CONFETTI */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: var(--accent-yellow);
+            pointer-events: none;
+            z-index: 999;
+            animation: confettiFall 3s linear forwards;
+        }
+        
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+        
+        /* LEVEL UP MODAL */
+        .level-up-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1001;
+        }
+        
+        .level-up-content {
+            background: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-pink) 100%);
+            padding: 48px;
+            border-radius: 32px;
+            text-align: center;
+            animation: levelUpPop 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        @keyframes levelUpPop {
+            0% { transform: scale(0) rotate(-10deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+        
+        .level-up-icon {
+            font-size: 80px;
+            margin-bottom: 16px;
+            animation: levelUpBounce 0.6s ease infinite;
+        }
+        
+        @keyframes levelUpBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .level-up-title {
+            font-size: 36px;
+            font-weight: 900;
+            margin-bottom: 8px;
+        }
+        
+        .level-up-subtitle {
+            font-size: 20px;
+            opacity: 0.9;
+        }
+        
+        .level-up-btn {
+            margin-top: 24px;
+            padding: 14px 36px;
+            background: #fff;
+            color: var(--accent-purple);
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 800;
+            cursor: pointer;
+            font-family: inherit;
+            transition: transform 0.3s ease;
+        }
+        
+        .level-up-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 1200px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                max-width: 700px;
+            }
+            
+            .sidebar-left, .sidebar-right {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+            
+            .profile-card, .streak-card {
+                grid-column: span 1;
+            }
+        }
+        
+        @media (max-width: 700px) {
+            .header-inner {
+                flex-direction: column;
+                gap: 12px;
+            }
+            
+            .stats-bar {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .habits-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar-left, .sidebar-right {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-pattern"></div>
+    
+    <!-- HEADER -->
+    <header class="game-header">
+        <div class="header-inner">
+            <div class="logo">
+                <div class="logo-icon">🎮</div>
+                U.GO Play
+            </div>
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <span class="stat-icon streak-fire">🔥</span>
+                    <span id="streakCount">7</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-icon xp-star">⭐</span>
+                    <span id="totalXP">2,450</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-icon hearts">❤️</span>
+                    <span id="hearts">5</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-icon gems">💎</span>
+                    <span id="gems">128</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN -->
+    <main class="main-container">
+        <!-- SIDEBAR LEFT -->
+        <aside class="sidebar-left">
+            <div class="card profile-card">
+                <div class="avatar">🦊</div>
+                <div class="username">Davi</div>
+                <div class="level-badge">⚡ Nível 12</div>
+                <div class="xp-progress">
+                    <div class="xp-label">
+                        <span>Próximo nível</span>
+                        <span><span id="currentXP">450</span> / 500 XP</span>
+                    </div>
+                    <div class="xp-bar">
+                        <div class="xp-fill" id="xpFill" style="width: 90%"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card streak-card">
+                <div class="streak-number" id="streakDisplay">7</div>
+                <div class="streak-label">dias seguidos! 🔥</div>
+                <div class="streak-days">
+                    <div class="day-dot completed">S</div>
+                    <div class="day-dot completed">T</div>
+                    <div class="day-dot completed">Q</div>
+                    <div class="day-dot completed">Q</div>
+                    <div class="day-dot completed">S</div>
+                    <div class="day-dot completed">S</div>
+                    <div class="day-dot today">D</div>
+                </div>
+            </div>
+            
+            <div class="card daily-goal-card">
+                <div class="goal-circle" style="--progress: 75" id="goalCircle">
+                    <div class="goal-inner">
+                        <div class="goal-percent" id="goalPercent">75%</div>
+                        <div class="goal-label">completo</div>
+                    </div>
+                </div>
+                <div class="goal-text">Meta Diária</div>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <section class="main-content">
+            <!-- HÁBITOS -->
+            <div class="habits-section">
+                <div class="section-header">
+                    <h2 class="section-title"><span>✨</span> Hábitos Diários</h2>
+                    <span class="section-count" id="habitsCount">0/6</span>
+                </div>
+                <div class="habits-grid" id="habitsGrid">
+                    <div class="habit-card" onclick="toggleHabit(this, 15)">
+                        <div class="habit-checkbox">✓</div>
+                        <div class="habit-icon">💧</div>
+                        <div class="habit-info">
+                            <div class="habit-name">Beber 2L de água</div>
+                            <div class="habit-xp">⭐ +15 XP</div>
+                        </div>
+                    </div>
+                    <div class="habit-card" onclick="toggleHabit(this, 25)">
+                        <div class="habit-checkbox">✓</div>
+                        <div class="habit-icon">🏃</div>
+                        <div class="habit-info">
+                            <div class="habit-name">Exercício 30min</div>
+                            <div class="habit-xp">⭐ +25 XP</div>
+                        </div>
+                    </div>
+                    <div class="habit-card" onclick="toggleHabit(this, 15)">
+                        <div class="habit-checkbox">✓</div>
+                        <div class="habit-icon">📚</div>
+                        <div class="habit-info">
+                            <div class="habit-name">Ler 20 páginas</div>
+                            <div class="habit-xp">⭐ +15 XP</div>
+                        </div>
+                    </div>
+                    <div class="habit-card" onclick="toggleHabit(this, 20)">
+                        <div class="habit-checkbox">✓</div>
+                        <div class="habit-icon">🧘</div>
+                        <div class="habit-info">
+                            <div class="habit-name">Meditar 10min</div>
+                            <div class="habit-xp">⭐ +20 XP</div>
+                        </div>
+                    </div>
+                    <div class="habit-card" onclick="toggleHabit(this, 15)">
+                        <div class="habit-checkbox">✓</div>
+                        <div class="habit-icon">🛏️</div>
+                        <div class="habit-info">
+                            <div class="habit-name">Dormir às 23h</div>
+                            <div class="habit-xp">⭐ +15 XP</div>
+                        </div>
+                    </div>
+                    <div class="habit-card" onclick="toggleHabit(this, 10)">
+                        <div class="habit-checkbox">✓</div>
+                        <div class="habit-icon">🥗</div>
+                        <div class="habit-info">
+                            <div class="habit-name">Comer saudável</div>
+                            <div class="habit-xp">⭐ +10 XP</div>
+                        </div>
+                    </div>
+                </div>
+                <button class="add-btn">➕ Adicionar Hábito</button>
+            </div>
+
+            <!-- TAREFAS -->
+            <div class="tasks-section">
+                <div class="section-header">
+                    <h2 class="section-title"><span>📋</span> Tarefas de Hoje</h2>
+                    <span class="section-count" id="tasksCount">0/5</span>
+                </div>
+                <div class="tasks-list" id="tasksList">
+                    <div class="task-card" onclick="toggleTask(this, 30)">
+                        <div class="task-priority priority-high"></div>
+                        <div class="task-checkbox">✓</div>
+                        <div class="task-info">
+                            <div class="task-name">Finalizar relatório do projeto</div>
+                            <div class="task-meta">
+                                <span>🕐 Até 14:00</span>
+                                <span>📁 Trabalho</span>
+                            </div>
+                        </div>
+                        <div class="task-xp">+30 XP</div>
+                    </div>
+                    <div class="task-card" onclick="toggleTask(this, 20)">
+                        <div class="task-priority priority-medium"></div>
+                        <div class="task-checkbox">✓</div>
+                        <div class="task-info">
+                            <div class="task-name">Reunião com equipe</div>
+                            <div class="task-meta">
+                                <span>🕐 15:00</span>
+                                <span>👥 Equipe</span>
+                            </div>
+                        </div>
+                        <div class="task-xp">+20 XP</div>
+                    </div>
+                    <div class="task-card" onclick="toggleTask(this, 25)">
+                        <div class="task-priority priority-high"></div>
+                        <div class="task-checkbox">✓</div>
+                        <div class="task-info">
+                            <div class="task-name">Estudar React Native</div>
+                            <div class="task-meta">
+                                <span>🕐 1 hora</span>
+                                <span>📖 Estudo</span>
+                            </div>
+                        </div>
+                        <div class="task-xp">+25 XP</div>
+                    </div>
+                    <div class="task-card" onclick="toggleTask(this, 15)">
+                        <div class="task-priority priority-low"></div>
+                        <div class="task-checkbox">✓</div>
+                        <div class="task-info">
+                            <div class="task-name">Responder emails</div>
+                            <div class="task-meta">
+                                <span>🕐 30min</span>
+                                <span>📧 Comunicação</span>
+                            </div>
+                        </div>
+                        <div class="task-xp">+15 XP</div>
+                    </div>
+                    <div class="task-card" onclick="toggleTask(this, 20)">
+                        <div class="task-priority priority-medium"></div>
+                        <div class="task-checkbox">✓</div>
+                        <div class="task-info">
+                            <div class="task-name">Planejar próxima semana</div>
+                            <div class="task-meta">
+                                <span>🕐 20min</span>
+                                <span>📅 Planejamento</span>
+                            </div>
+                        </div>
+                        <div class="task-xp">+20 XP</div>
+                    </div>
+                </div>
+                <button class="add-btn">➕ Adicionar Tarefa</button>
+            </div>
+        </section>
+
+        <!-- SIDEBAR RIGHT -->
+        <aside class="sidebar-right">
+            <div class="card achievements-card">
+                <h3 class="section-title" style="font-size: 18px;"><span>🏆</span> Conquistas</h3>
+                <div class="achievements-grid">
+                    <div class="achievement unlocked" title="Primeiro passo">🎯</div>
+                    <div class="achievement unlocked" title="7 dias seguidos">🔥</div>
+                    <div class="achievement unlocked" title="500 XP">⭐</div>
+                    <div class="achievement unlocked" title="Madrugador">🌅</div>
+                    <div class="achievement unlocked" title="Leitor">📚</div>
+                    <div class="achievement unlocked" title="Atleta">🏃</div>
+                    <div class="achievement locked" title="30 dias seguidos">💎</div>
+                    <div class="achievement locked" title="5000 XP">🚀</div>
+                    <div class="achievement locked" title="Mestre">👑</div>
+                </div>
+            </div>
+            
+            <div class="card leaderboard-card">
+                <h3 class="section-title" style="font-size: 18px;"><span>🏅</span> Ranking Semanal</h3>
+                <div class="leaderboard-list">
+                    <div class="leaderboard-item">
+                        <div class="rank rank-1">1</div>
+                        <div class="leader-avatar" style="background: linear-gradient(135deg, #ff6b6b, #ee5a5a);">🦁</div>
+                        <div class="leader-name">Ana</div>
+                        <div class="leader-xp">3,240</div>
+                    </div>
+                    <div class="leaderboard-item">
+                        <div class="rank rank-2">2</div>
+                        <div class="leader-avatar" style="background: linear-gradient(135deg, #4ecdc4, #44b3aa);">🐯</div>
+                        <div class="leader-name">Pedro</div>
+                        <div class="leader-xp">2,890</div>
+                    </div>
+                    <div class="leaderboard-item you">
+                        <div class="rank rank-3">3</div>
+                        <div class="leader-avatar" style="background: linear-gradient(135deg, #f7b731, #eb9c0f);">🦊</div>
+                        <div class="leader-name">Você</div>
+                        <div class="leader-xp">2,450</div>
+                    </div>
+                    <div class="leaderboard-item">
+                        <div class="rank">4</div>
+                        <div class="leader-avatar" style="background: linear-gradient(135deg, #a55eea, #8e44ad);">🐻</div>
+                        <div class="leader-name">Lucas</div>
+                        <div class="leader-xp">2,100</div>
+                    </div>
+                    <div class="leaderboard-item">
+                        <div class="rank">5</div>
+                        <div class="leader-avatar" style="background: linear-gradient(135deg, #26de81, #20c973);">🐰</div>
+                        <div class="leader-name">Maria</div>
+                        <div class="leader-xp">1,850</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card quote-card">
+                <div class="quote-text">"O sucesso é a soma de pequenos esforços repetidos dia após dia."</div>
+                <div class="quote-author">— Robert Collier</div>
+            </div>
+        </aside>
+    </main>
+
+    <!-- XP POPUP -->
+    <div class="xp-popup" id="xpPopup">+20 XP! ⭐</div>
+    
+    <!-- LEVEL UP MODAL -->
+    <div class="level-up-modal" id="levelUpModal">
+        <div class="level-up-content">
+            <div class="level-up-icon">🎉</div>
+            <div class="level-up-title">LEVEL UP!</div>
+            <div class="level-up-subtitle">Você alcançou o Nível <span id="newLevel">13</span>!</div>
+            <button class="level-up-btn" onclick="closeLevelUp()">Continuar</button>
+        </div>
+    </div>
+
+    <script>
+        let totalXP = 2450;
+        let currentLevelXP = 450;
+        let xpToNextLevel = 500;
+        let level = 12;
+        let completedHabits = 0;
+        let completedTasks = 0;
+        const totalHabits = 6;
+        const totalTasks = 5;
+        
+        function toggleHabit(element, xp) {
+            const wasCompleted = element.classList.contains('completed');
+            element.classList.toggle('completed');
+            
+            if (!wasCompleted) {
+                completedHabits++;
+                addXP(xp);
+                createConfetti();
+            } else {
+                completedHabits--;
+                removeXP(xp);
+            }
+            
+            updateCounts();
+            updateGoal();
+        }
+        
+        function toggleTask(element, xp) {
+            const wasCompleted = element.classList.contains('completed');
+            element.classList.toggle('completed');
+            
+            if (!wasCompleted) {
+                completedTasks++;
+                addXP(xp);
+                createConfetti();
+            } else {
+                completedTasks--;
+                removeXP(xp);
+            }
+            
+            updateCounts();
+            updateGoal();
+        }
+        
+        function addXP(amount) {
+            totalXP += amount;
+            currentLevelXP += amount;
+            
+            // Check level up
+            if (currentLevelXP >= xpToNextLevel) {
+                levelUp();
+            }
+            
+            updateXPDisplay();
+            showXPPopup(amount);
+        }
+        
+        function removeXP(amount) {
+            totalXP -= amount;
+            currentLevelXP -= amount;
+            if (currentLevelXP < 0) currentLevelXP = 0;
+            updateXPDisplay();
+        }
+        
+        function updateXPDisplay() {
+            document.getElementById('totalXP').textContent = totalXP.toLocaleString();
+            document.getElementById('currentXP').textContent = currentLevelXP;
+            
+            const progress = (currentLevelXP / xpToNextLevel) * 100;
+            document.getElementById('xpFill').style.width = progress + '%';
+        }
+        
+        function showXPPopup(amount) {
+            const popup = document.getElementById('xpPopup');
+            popup.textContent = `+${amount} XP! ⭐`;
+            popup.classList.add('show');
+            
+            setTimeout(() => {
+                popup.classList.remove('show');
+            }, 1500);
+        }
+        
+        function levelUp() {
+            level++;
+            currentLevelXP = currentLevelXP - xpToNextLevel;
+            xpToNextLevel = Math.floor(xpToNextLevel * 1.2);
+            
+            document.getElementById('newLevel').textContent = level;
+            document.getElementById('levelUpModal').style.display = 'flex';
+            
+            // Update level badge
+            document.querySelector('.level-badge').innerHTML = `⚡ Nível ${level}`;
+            
+            createMassiveConfetti();
+        }
+        
+        function closeLevelUp() {
+            document.getElementById('levelUpModal').style.display = 'none';
+        }
+        
+        function updateCounts() {
+            document.getElementById('habitsCount').textContent = `${completedHabits}/${totalHabits}`;
+            document.getElementById('tasksCount').textContent = `${completedTasks}/${totalTasks}`;
+        }
+        
+        function updateGoal() {
+            const total = totalHabits + totalTasks;
+            const completed = completedHabits + completedTasks;
+            const percent = Math.round((completed / total) * 100);
+            
+            document.getElementById('goalPercent').textContent = percent + '%';
+            document.getElementById('goalCircle').style.setProperty('--progress', percent);
+        }
+        
+        function createConfetti() {
+            const colors = ['#58cc02', '#ffc800', '#ff9600', '#1cb0f6', '#a855f7', '#ec4899'];
+            
+            for (let i = 0; i < 20; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                document.body.appendChild(confetti);
+                
+                setTimeout(() => confetti.remove(), 4000);
+            }
+        }
+        
+        function createMassiveConfetti() {
+            const colors = ['#58cc02', '#ffc800', '#ff9600', '#1cb0f6', '#a855f7', '#ec4899', '#ff4b4b'];
+            
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.width = (Math.random() * 10 + 5) + 'px';
+                confetti.style.height = (Math.random() * 10 + 5) + 'px';
+                confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                confetti.style.animationDelay = Math.random() * 1 + 's';
+                document.body.appendChild(confetti);
+                
+                setTimeout(() => confetti.remove(), 5000);
+            }
+        }
+        
+        // Initialize counts
+        updateCounts();
+    </script>
+</body>
+</html>

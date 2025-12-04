@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Sobre Nós · U.GO App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <style>
+        :root {
+            --bg: #f9fafb;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #6b7280;
+            --border-subtle: #e5e7eb;
+            --shadow-soft: 0 22px 50px rgba(15, 23, 42, 0.06);
+            --accent-orange: #f2702a;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: "Inter", system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text-main);
+            -webkit-font-smoothing: antialiased;
+            line-height: 1.6;
+        }
+        
+        a { text-decoration: none; color: inherit; }
+        
+        /* NAVBAR */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            backdrop-filter: blur(18px);
+            background: rgba(249, 250, 251, 0.9);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        
+        .nav-inner {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .nav-logo img {
+            height: 32px;
+            width: auto;
+        }
+        
+        .nav-logo a {
+            font-weight: 600;
+            font-size: 18px;
+        }
+        
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 14px;
+        }
+        
+        .nav-links a {
+            padding: 8px 14px;
+            border-radius: 999px;
+            color: var(--text-muted);
+            transition: 0.3s;
+        }
+        
+        .nav-links a:hover {
+            background: #e5e7eb;
+            color: #111827;
+        }
+        
+        .btn-primary {
+            background: var(--accent-orange) !important;
+            color: white !important;
+            padding: 10px 20px;
+            border-radius: 999px;
+            font-weight: 500;
+        }
+        
+        .btn-primary:hover {
+            background: #e86500 !important;
+        }
+        
+        /* HERO SOBRE */
+        .sobre-hero {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 80px 16px 60px;
+            text-align: center;
+        }
+        
+        .sobre-hero h1 {
+            font-size: clamp(36px, 5vw, 52px);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 20px;
+            color: var(--text-main);
+        }
+        
+        .sobre-hero h1 span {
+            color: var(--accent-orange);
+        }
+        
+        .sobre-hero-logo {
+            width: auto;
+            height: auto;
+            margin: 20px auto 0;
+        }
+        
+        .sobre-hero-logo video {
+            width: 400px;
+            height: auto;
+            object-fit: contain;
+            background: transparent;
+            mix-blend-mode: multiply;
+        }
+        
+        /* HISTÓRIA */
+        .historia-section {
+            background: #ffffff;
+            padding: 80px 16px;
+        }
+        
+        .historia-grid {
+            max-width: 1100px;
+            margin: 0 auto 60px;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 60px;
+            align-items: start;
+        }
+        
+        .fundadores-img {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .fundadores-img img,
+        .fundadores-img video {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .historia-texto h2 {
+            font-size: clamp(36px, 5vw, 48px);
+            font-weight: 400;
+            font-style: italic;
+            font-family: Georgia, "Times New Roman", serif;
+            letter-spacing: -0.02em;
+            line-height: 1.15;
+            margin-bottom: 30px;
+            color: var(--text-main);
+        }
+        
+        .historia-texto p {
+            font-size: 16px;
+            line-height: 1.75;
+            color: var(--text-muted);
+            margin-bottom: 18px;
+        }
+        
+        .historia-texto p strong {
+            color: var(--text-main);
+        }
+        
+        .historia-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .historia-grid-reverse {
+            grid-template-columns: 1.2fr 1fr;
+            margin-top: 40px;
+            margin-bottom: -200px;
+            align-items: flex-start;
+            overflow: visible;
+        }
+        
+        .historia-video {
+            width: auto;
+            max-width: none;
+            border-radius: 4px;
+            overflow: visible;
+            margin-top: -300px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .historia-container {
+            position: relative;
+            z-index: 20;
+        }
+        
+        .historia-texto {
+            position: relative;
+            z-index: 20;
+        }
+        
+        .historia-video video {
+            width: auto;
+            max-width: 550px;
+            height: auto;
+            object-fit: contain;
+            display: block;
+            border-radius: 4px;
+        }
+        
+        @media (max-width: 900px) {
+            .historia-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .historia-grid-reverse {
+                grid-template-columns: 1fr;
+            }
+            
+            .fundadores-img,
+            .historia-video {
+                max-width: 100%;
+            }
+        }
+        
+        .historia-container h2 {
+            font-size: clamp(28px, 4vw, 38px);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 30px;
+            color: var(--text-main);
+            text-align: center;
+        }
+        
+        .historia-container p {
+            font-size: 17px;
+            line-height: 1.8;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+        
+        .historia-container p strong {
+            color: var(--text-main);
+        }
+        
+        .historia-destaque {
+            background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+            border-left: 4px solid var(--accent-orange);
+            padding: 24px 28px;
+            border-radius: 0 16px 16px 0;
+            margin: 40px 0;
+        }
+        
+        .historia-destaque p {
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--text-main);
+            margin: 0;
+            font-style: italic;
+        }
+        
+        /* DEPOIMENTOS FUNDADORES */
+        .testimonials-section {
+            padding: 80px 16px;
+            background: #ffffff;
+        }
+        
+        .testimonials-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .testimonials-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .testimonials-header h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-main);
+        }
+        
+        .testimonials-header p {
+            font-size: 17px;
+            color: var(--text-muted);
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        
+        .images-area {
+            position: relative;
+            height: 420px;
+            width: 100%;
+        }
+        
+        .testimonial-image {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 24px;
+            object-fit: cover;
+            object-position: center;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: bottom center;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+        
+        .testimonial-image.active {
+            opacity: 1;
+            z-index: 10;
+            transform: scale(1) rotate(0deg) translateY(0);
+        }
+        
+        .testimonial-image.inactive {
+            opacity: 0.6;
+            z-index: 5;
+            transform: scale(0.95) rotate(var(--rotation)) translateY(0);
+        }
+        
+        @keyframes bounceUp {
+            0%, 100% { transform: scale(1) rotate(0deg) translateY(0); }
+            50% { transform: scale(1) rotate(0deg) translateY(-40px); }
+        }
+        
+        .testimonial-image.bounce {
+            animation: bounceUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .content-area {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 420px;
+            padding: 20px 0;
+        }
+        
+        .testimonial-content {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+        }
+        
+        .testimonial-content.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .testimonial-name {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 4px;
+        }
+        
+        .testimonial-role {
+            font-size: 14px;
+            color: var(--accent-orange);
+            margin-bottom: 32px;
+            font-weight: 500;
+        }
+        
+        .testimonial-quote {
+            font-size: 18px;
+            line-height: 1.7;
+            color: var(--text-muted);
+        }
+        
+        .testimonial-quote .word {
+            display: inline-block;
+            opacity: 0;
+            filter: blur(10px);
+            transform: translateY(5px);
+            animation: revealWord 0.3s ease forwards;
+        }
+        
+        @keyframes revealWord {
+            to {
+                opacity: 1;
+                filter: blur(0);
+                transform: translateY(0);
+            }
+        }
+        
+        .navigation {
+            display: flex;
+            gap: 12px;
+            margin-top: 40px;
+        }
+        
+        .nav-btn-test {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #f3f4f6;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-btn-test:hover {
+            background: var(--accent-orange);
+        }
+        
+        .nav-btn-test:hover svg {
+            stroke: white;
+        }
+        
+        .nav-btn-test svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--text-main);
+            stroke-width: 2;
+            fill: none;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-btn-test:hover .arrow-left {
+            transform: rotate(12deg);
+        }
+        
+        .nav-btn-test:hover .arrow-right {
+            transform: rotate(-12deg);
+        }
+        
+        .nav-btn-test .arrow-left,
+        .nav-btn-test .arrow-right {
+            transition: transform 0.3s ease;
+        }
+        
+        .indicators {
+            display: flex;
+            gap: 8px;
+            margin-top: 20px;
+        }
+        
+        .indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #e5e7eb;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .indicator.active {
+            background: var(--accent-orange);
+            width: 24px;
+            border-radius: 4px;
+        }
+        
+        @media (max-width: 900px) {
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .images-area {
+                height: 350px;
+            }
+            
+            .content-area {
+                min-height: auto;
+            }
+            
+            .testimonial-name {
+                font-size: 24px;
+            }
+            
+            .testimonial-quote {
+                font-size: 16px;
+            }
+        }
+        
+        /* MISSÃO */
+        .missao-section {
+            padding: 80px 16px;
+            background: var(--bg);
+        }
+        
+        .missao-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        
+        .missao-text h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-main);
+        }
+        
+        .missao-text p {
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+        
+        .missao-card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid var(--border-subtle);
+        }
+        
+        .missao-card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--accent-orange);
+        }
+        
+        .missao-card ul {
+            list-style: none;
+        }
+        
+        .missao-card li {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-subtle);
+            font-size: 15px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .missao-card li:last-child {
+            border-bottom: none;
+        }
+        
+        .missao-card li span {
+            font-size: 20px;
+        }
+        
+        /* IMPACTO */
+        .impacto-section {
+            background: #111827;
+            color: #ffffff;
+            padding: 80px 16px;
+            text-align: center;
+        }
+        
+        .impacto-section h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        
+        .impacto-section p {
+            font-size: 17px;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+        
+        .impacto-lista {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .impacto-item {
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        .impacto-item span {
+            font-size: 48px;
+            display: block;
+            margin-bottom: 8px;
+            animation: iconFloat 3s ease-in-out infinite;
+            transition: transform 0.3s ease;
+        }
+        
+        .impacto-item:nth-child(1) span { animation-delay: 0s; }
+        .impacto-item:nth-child(2) span { animation-delay: 0.3s; }
+        .impacto-item:nth-child(3) span { animation-delay: 0.6s; }
+        .impacto-item:nth-child(4) span { animation-delay: 0.9s; }
+        
+        .impacto-item:hover span {
+            transform: scale(1.5);
+            animation-play-state: paused;
+        }
+        
+        .impacto-item strong {
+            font-size: 15px;
+            opacity: 0.9;
+        }
+        
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        /* CTA */
+        .cta-section {
+            padding: 80px 16px;
+            text-align: center;
+            background: var(--bg);
+        }
+        
+        .cta-section h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        
+        .cta-section p {
+            font-size: 17px;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+        
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 32px;
+            background: var(--accent-orange);
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 999px;
+            box-shadow: 0 18px 40px rgba(242, 112, 42, 0.3);
+            transition: 0.3s;
+        }
+        
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 24px 50px rgba(242, 112, 42, 0.4);
+        }
+        
+        /* FOOTER */
+        footer {
+            background: #ffffff;
+            border-top: 1px solid var(--border-subtle);
+            padding: 40px 16px;
+        }
+        
+        .footer-inner {
+            max-width: 1120px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 24px;
+            font-size: 14px;
+        }
+        
+        .footer-links a {
+            color: var(--text-muted);
+            transition: 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-orange);
+        }
+        
+        .footer-copy {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 16px;
+        }
+        
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+        
+        .footer-social a:hover {
+            background: var(--accent-orange);
+            color: white;
+        }
+        
+        /* RESPONSIVO */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .missao-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .impacto-lista {
+                gap: 30px;
+            }
+            
+            .footer-inner {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVBAR -->
+    <header class="site-header">
+        <div class="nav-inner">
+            <div class="nav-logo">
+                <img src="./logo.png" alt="U.GO">
+                <a href="index.html">U.GO</a>
+            </div>
+            <nav class="nav-links">
+                <a href="index.html">Início</a>
+                <a href="sobre.html" style="color: #111827; font-weight: 500;">Sobre Nós</a>
+                <a href="analytics.html">Analytics</a>
+                <a href="#" class="btn-primary">Teste Grátis</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="sobre-hero">
+        <h1>Quem somos por trás da</h1>
+        <div class="sobre-hero-logo">
+            <video src="./logo.mp4" autoplay muted loop playsinline></video>
+        </div>
+    </section>
+
+    <!-- HISTÓRIA COM IMAGEM -->
+    <section class="historia-section">
+        <div class="historia-grid">
+            <div class="fundadores-img">
+                <video src="./fundadores.mp4" autoplay muted loop playsinline></video>
+            </div>
+            <div class="historia-texto">
+                <h2>Por que criamos a U.GO</h2>
+                
+                <p>A <strong>U.GO</strong> nasceu dentro da <strong>Plann To Go</strong>, uma metodologia criada para ensinar pessoas a planejarem a própria vida com <strong>propósito</strong> e <strong>visão de futuro.</strong></p>
+                
+                <p>Durante anos, estivemos em escolas, universidades e empresas, ouvindo histórias reais de pessoas que queriam crescer, mas não sabiam por onde começar.</p>
+                
+                <p>Entre sonhos, cadernos e conversas sinceras — que percebemos algo essencial: <strong>as pessoas não travam por falta de capacidade, mas por falta de clareza e direção.</strong></p>
+                
+                <p>A missão ficou pessoal.</p>
+            </div>
+        </div>
+        
+        <!-- SEÇÃO ESPELHADA - TEXTO À ESQUERDA, VÍDEO À DIREITA -->
+        <div class="historia-grid historia-grid-reverse">
+            <div class="historia-texto">
+                <h2>A tecnologia a serviço do humano</h2>
+                
+                <p>Assim nasceu a <strong>U.GO</strong>: a tecnologia que leva a metodologia Plann To Go para o bolso, unindo autoconhecimento, foco e execução em uma jornada guiada por IA.</p>
+                
+                <p>Um app que ajuda cada pessoa a encontrar seu ritmo, desenvolver suas soft skills e chegar mais perto do seu <strong>Sonho Grande</strong>, com leveza e constância.</p>
+                
+                <p>Hoje, a U.GO está presente em escolas, universidades e empresas que acreditam no mesmo que nós.</p>
+            </div>
+            <div class="historia-video">
+                <video src="./huguito.mp4" autoplay muted loop playsinline></video>
+            </div>
+        </div>
+        
+        <div class="historia-container">
+            <div class="historia-destaque">
+                <p>"A cada aluno que dizia 'eu não sei o que quero da vida', a cada profissional esgotado tentando equilibrar rotina e propósito, entendemos que o mundo não precisava de mais produtividade — precisava de sentido."</p>
+            </div>
+            
+            <p>O verdadeiro impacto está na ponta, quando alguém finalmente entende quem é, onde quer chegar — e dá o primeiro passo para chegar lá.</p>
+        </div>
+    </section>
+
+    <!-- DEPOIMENTOS FUNDADORES -->
+    <section class="testimonials-section">
+        <div class="testimonials-container">
+            <div class="testimonials-header">
+                <h2>O que os fundadores dizem</h2>
+                <p>A visão de quem criou a U.GO para transformar vidas</p>
+            </div>
+            
+            <div class="testimonials-grid">
+                <!-- Área das Imagens -->
+                <div class="images-area">
+                    <img 
+                        src="./vic.jpg" 
+                        alt="Victoria Prado" 
+                        class="testimonial-image active"
+                        data-index="0"
+                        style="--rotation: -5deg"
+                    >
+                    <img 
+                        src="./murilo.jpg" 
+                        alt="Murilo Curti" 
+                        class="testimonial-image inactive"
+                        data-index="1"
+                        style="--rotation: 8deg"
+                    >
+                </div>
+                
+                <!-- Área do Conteúdo -->
+                <div class="content-area">
+                    <div class="testimonial-content active" data-index="0">
+                        <h3 class="testimonial-name">Victoria Prado</h3>
+                        <p class="testimonial-role">Co-fundadora & CEO · U.GO</p>
+                        <p class="testimonial-quote">
+                            "Acreditamos que o desenvolvimento humano precisa ser mensurável, mas sem perder a essência. O U.GO nasceu da vontade de transformar sonhos em metas tangíveis, ajudando cada pessoa a construir a melhor versão de si mesma."
+                        </p>
+                    </div>
+                    
+                    <div class="testimonial-content" data-index="1" style="display: none;">
+                        <h3 class="testimonial-name">Murilo Curti</h3>
+                        <p class="testimonial-role">Co-fundador & CTO · U.GO</p>
+                        <p class="testimonial-quote">
+                            "A tecnologia deve servir às pessoas, não o contrário. Criamos o U.GO para ser uma ferramenta que potencializa o crescimento pessoal, respeitando a individualidade e o ritmo de cada um na jornada de autodesenvolvimento."
+                        </p>
+                    </div>
+                    
+                    <!-- Navegação -->
+                    <div>
+                        <div class="navigation">
+                            <button class="nav-btn-test" id="prevBtn">
+                                <svg class="arrow-left" viewBox="0 0 24 24">
+                                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                                </svg>
+                            </button>
+                            <button class="nav-btn-test" id="nextBtn">
+                                <svg class="arrow-right" viewBox="0 0 24 24">
+                                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <div class="indicators">
+                            <div class="indicator active" data-index="0"></div>
+                            <div class="indicator" data-index="1"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MISSÃO -->
+    <section class="missao-section">
+        <div class="missao-container">
+            <div class="missao-text">
+                <h2>Nossa Missão</h2>
+                <p>Ajudar pessoas a transformarem seus sonhos em realidade através de planejamento inteligente, autoconhecimento e tecnologia.</p>
+                <p>Acreditamos que todo mundo merece clareza para construir a vida que deseja — sem se perder no caminho.</p>
+            </div>
+            <div class="missao-card">
+                <h3>O que nos move</h3>
+                <ul>
+                    <li><span>🎯</span> Clareza sobre propósito e objetivos</li>
+                    <li><span>💡</span> Autoconhecimento como base do sucesso</li>
+                    <li><span>🚀</span> Ação consistente, não perfeição</li>
+                    <li><span>❤️</span> Impacto real na vida das pessoas</li>
+                    <li><span>🤝</span> Comunidade e apoio mútuo</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- IMPACTO -->
+    <section class="impacto-section">
+        <h2>Onde a U.GO está presente</h2>
+        <p>Levamos nossa metodologia para quem acredita no poder da transformação pessoal.</p>
+        <div class="impacto-lista">
+            <div class="impacto-item">
+                <span>🏫</span>
+                <strong>Escolas</strong>
+            </div>
+            <div class="impacto-item">
+                <span>🎓</span>
+                <strong>Universidades</strong>
+            </div>
+            <div class="impacto-item">
+                <span>🏢</span>
+                <strong>Empresas</strong>
+            </div>
+            <div class="impacto-item">
+                <span>👤</span>
+                <strong>Pessoas</strong>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <h2>Pronto para começar sua jornada?</h2>
+        <p>Baixe o U.GO e descubra o poder de planejar com propósito.</p>
+        <a href="#" class="cta-btn">
+            Teste Grátis
+        </a>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-links">
+                <a href="#">Dicas do Hugo</a>
+                <a href="#">FAQ</a>
+                <a href="#">Termos de Uso</a>
+                <a href="#">Política de Privacidade</a>
+            </div>
+            <p class="footer-copy">© Copyright U.GO 2025</p>
+            <div class="footer-social">
+                <a href="#" title="LinkedIn">in</a>
+                <a href="#" title="Instagram">📷</a>
+                <a href="#" title="TikTok">🎵</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Depoimentos Animados
+        const testimonials = [
+            {
+                name: "Victoria Prado",
+                role: "Co-fundadora & CEO · U.GO",
+                quote: "Acreditamos que o desenvolvimento humano precisa ser mensurável, mas sem perder a essência. O U.GO nasceu da vontade de transformar sonhos em metas tangíveis, ajudando cada pessoa a construir a melhor versão de si mesma."
+            },
+            {
+                name: "Murilo Curti",
+                role: "Co-fundador & CTO · U.GO",
+                quote: "A tecnologia deve servir às pessoas, não o contrário. Criamos o U.GO para ser uma ferramenta que potencializa o crescimento pessoal, respeitando a individualidade e o ritmo de cada um na jornada de autodesenvolvimento."
+            }
+        ];
+        
+        let currentIndex = 0;
+        
+        const images = document.querySelectorAll('.testimonial-image');
+        const contents = document.querySelectorAll('.testimonial-content');
+        const indicators = document.querySelectorAll('.indicator');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        
+        function animateWords(contentEl) {
+            const quote = contentEl.querySelector('.testimonial-quote');
+            const text = testimonials[currentIndex].quote;
+            const words = text.split(' ');
+            
+            quote.innerHTML = words.map((word, i) => 
+                `<span class="word" style="animation-delay: ${i * 0.03}s">${word}&nbsp;</span>`
+            ).join('');
+        }
+        
+        function updateTestimonial(newIndex) {
+            currentIndex = newIndex;
+            
+            // Atualizar imagens
+            images.forEach((img, i) => {
+                img.classList.remove('active', 'inactive', 'bounce');
+                
+                if (i === currentIndex) {
+                    img.classList.add('active', 'bounce');
+                } else {
+                    img.classList.add('inactive');
+                    img.style.setProperty('--rotation', `${Math.floor(Math.random() * 21) - 10}deg`);
+                }
+            });
+            
+            // Atualizar conteúdo
+            contents.forEach((content, i) => {
+                if (i === currentIndex) {
+                    content.style.display = 'block';
+                    setTimeout(() => {
+                        content.classList.add('active');
+                        animateWords(content);
+                    }, 50);
+                } else {
+                    content.classList.remove('active');
+                    setTimeout(() => {
+                        content.style.display = 'none';
+                    }, 300);
+                }
+            });
+            
+            // Atualizar indicadores
+            indicators.forEach((ind, i) => {
+                ind.classList.toggle('active', i === currentIndex);
+            });
+        }
+        
+        function next() {
+            const newIndex = (currentIndex + 1) % testimonials.length;
+            updateTestimonial(newIndex);
+        }
+        
+        function prev() {
+            const newIndex = (currentIndex - 1 + testimonials.length) % testimonials.length;
+            updateTestimonial(newIndex);
+        }
+        
+        // Event listeners
+        if (nextBtn) nextBtn.addEventListener('click', next);
+        if (prevBtn) prevBtn.addEventListener('click', prev);
+        
+        indicators.forEach((ind, i) => {
+            ind.addEventListener('click', () => {
+                if (i !== currentIndex) {
+                    updateTestimonial(i);
+                }
+            });
+        });
+        
+        // Inicializar animação das palavras
+        if (contents[0]) animateWords(contents[0]);
+    </script>
+</body>
+</html>
+
